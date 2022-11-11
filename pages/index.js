@@ -3,16 +3,19 @@ import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
 import MenuBar from "../src/components/MenuBar";
 import { StyledTimeline } from "../src/components/TimeLine.Js";
+import { StyledFavorits } from "../src/components/Favorits.js"
+
 
 function HomePage() {
   return (
     <>
-      <CSSReset/>
-        <div>
-          <MenuBar/>
-          <Header />
-          <TimeLine playlist={config.playlist} />
-        </div>
+      <CSSReset />
+      <div>
+        <MenuBar />
+        <Header />
+        <TimeLine playlist={config.playlist} />
+        <Favorits />
+      </div>
     </>
   );
 };
@@ -44,7 +47,7 @@ const StyledHead = styled.div`
 function Header() {
   return (
     <StyledHead>
-      <img src={config.banner} alt="Campo com girassois" className="Banner"/>
+      <img src={config.banner} alt="Campo com girassois" className="Banner" />
       <section className="info-user">
         <img src={config.github} alt="" />
         <div>
@@ -69,7 +72,7 @@ function TimeLine(props) {
               {videos.map((v) => {
                 return (
                   <a href={v.url} target="_blank">
-                    <img src={v.thumb} alt=""/>
+                    <img src={v.thumb} alt="" />
                     <span>{v.title}</span>
                   </a>
                 )
@@ -79,5 +82,26 @@ function TimeLine(props) {
         );
       })}
     </StyledTimeline>
+  )
+};
+
+function Favorits() {
+  return (
+    <StyledFavorits>
+      <section>
+        <h2>Youtubers Favoritos</h2>
+        <div>
+          {config.YoutubersFavoritos.map((youtuber) => {
+            return (
+              <a href={youtuber.url}>
+                <img src={youtuber.img} />
+                <span> {youtuber.nome}</span>
+              </a>
+            )
+          }
+        )}
+        </div>
+      </section>
+    </StyledFavorits>
   )
 };

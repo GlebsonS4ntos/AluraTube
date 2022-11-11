@@ -130,5 +130,17 @@
                 "thumb": "https://img.youtube.com/vi/0JWMVc1CqpA/hqdefault.jpg"
             }
         ]
-    }
+    },
+    "YoutubersFavoritos": [
+        {
+            "nome": "Lucas Montano",
+            "url": "https://www.youtube.com/c/LucasMontano",
+            "img": "https://github.com/lucasmontano.png"
+        },
+        {
+            "nome": "Filipe Deschamps",
+            "url": "https://www.youtube.com/c/FilipeDeschamps",
+            "img": "https://github.com/filipedeschamps.png"
+        }
+    ]
 }
