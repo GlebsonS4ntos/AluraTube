@@ -32,15 +32,22 @@ const StyledHead = styled.div`
       gap: 16px;
       padding-top: 70px;
     }
-    .info{
+    .Banner{
+      width: 100%;
+      height: 230px;
+      left: 0px;
+      top: 56px;
+      border-radius: 0%;
+      object-fit: cover;
     }
   `;
 function Header() {
   return (
     <StyledHead>
+      <img src={config.banner} alt="Campo com girassois" className="Banner"/>
       <section className="info-user">
         <img src={config.github} alt="" />
-        <div className="info">
+        <div>
           <h2>{config.name}</h2>
           <p>{config.job}</p>
         </div>
@@ -61,8 +68,8 @@ function TimeLine(props) {
             <div>
               {videos.map((v) => {
                 return (
-                  <a href={v.url}>
-                    <img src={v.thumb} alt="" />
+                  <a href={v.url} target="_blank">
+                    <img src={v.thumb} alt=""/>
                     <span>{v.title}</span>
                   </a>
                 )
