@@ -1,19 +1,21 @@
 import config from "../config.json";
 import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
-import MenuBar from "../src/components/MenuBar";
+import MenuBar from "../src/components/Menu/index.js";
 import { StyledTimeline } from "../src/components/TimeLine.Js";
 import { StyledFavorits } from "../src/components/Favorits.js"
+import React from "react";
 
 
 function HomePage() {
+  const [valorDoFiltro, setValorDoFiltro] = React.useState("");
   return (
     <>
       <CSSReset />
       <div>
-        <MenuBar />
+        <MenuBar valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro}/>
         <Header />
-        <TimeLine playlist={config.playlist} />
+        <TimeLine searchValue={valorDoFiltro}  playlist={config.playlist} />
         <Favorits />
       </div>
     </>
@@ -35,19 +37,20 @@ const StyledHead = styled.div`
       gap: 16px;
       padding-top: 70px;
     }
-    .Banner{
-      width: 100%;
+  `;
+
+  const Banner = styled.div`
       height: 230px;
-      left: 0px;
-      top: 56px;
-      border-radius: 0%;
-      object-fit: cover;
-    }
+      background-color: red;
+      background-image: url(${({bg}) => bg});
+      background-size: cover;
+      background-position: center;
+      //object-fit: cover; seria usado caso a tag fosse uma img e estivese recebendo a imagem no parametro src
   `;
 function Header() {
   return (
     <StyledHead>
-      <img src={config.banner} alt="Campo com girassois" className="Banner" />
+      <Banner bg={config.banner}/>
       <section className="info-user">
         <img src={config.github} alt="" />
         <div>
@@ -59,19 +62,23 @@ function Header() {
   );
 };
 
-function TimeLine(props) {
+function TimeLine({searchValue, ...props}) {
   const playlistNames = Object.keys(props.playlist);
   return (
     <StyledTimeline>
       {playlistNames.map((name) => {
         const videos = props.playlist[name];
         return (
-          <section>
+          <section key={name}>
             <h2>{name}</h2>
             <div>
-              {videos.map((v) => {
+              {videos.filter((video) => {
+                 const titleNormalized = video.title.toLowerCase();
+                 const searchValueNormalized = searchValue.toLowerCase();
+                 return titleNormalized.includes(searchValueNormalized)
+              }).map((v) => {
                 return (
-                  <a href={v.url} target="_blank">
+                  <a key={v.url} href={v.url} target="_blank">
                     <img src={v.thumb} alt="" />
                     <span>{v.title}</span>
                   </a>
@@ -93,7 +100,7 @@ function Favorits() {
         <div>
           {config.YoutubersFavoritos.map((youtuber) => {
             return (
-              <a href={youtuber.url}>
+              <a key={youtuber.url} href={youtuber.url}>
                 <img src={youtuber.img} />
                 <span> {youtuber.nome}</span>
               </a>

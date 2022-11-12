@@ -2,16 +2,14 @@
 import styled from "styled-components";
 
 export const StyledFavorits = styled.div`
-    width: 100%;
     overflow: auto;
-    margin: 32px;
-    overflow: auto;
+    padding: 32px;
     section{
         display: flex;
         flex-direction: column;
+        box-sizing: border-box;
     }
     div{
-        width: calc(100vw - 16px * 4);
         display: grid;
         overflow: auto;
         grid-template-columns: repeat(auto-fill,minmax(130px,1fr));
